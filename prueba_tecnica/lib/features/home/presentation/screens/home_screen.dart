@@ -11,10 +11,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool pasa = false;
+  @override
+  void initState() {
+    super.initState();
+    // bloc.add(GetItemsList());
+  }
+
   List<User> listUser = [];
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<HomeBloc>(context);
+    !pasa ? bloc.add(GetItemsList()) : null;
+    pasa = true;
     return Scaffold(
       body: Center(
         child: BlocConsumer(
@@ -27,12 +36,23 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           builder: (context, state) {
             if (state is LoadingHome) return const CircularProgressIndicator();
-            return ListView.builder(
-              itemCount: listUser.length,
-              itemBuilder: (context, index) {
-                User user = listUser[index];
-                Text(user.name);
-              },
+            return Center(
+              child: Container(
+                width: 200,
+                height: 200,
+                child: ListView.builder(
+                  itemCount: listUser.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    User user = listUser[index];
+                    Text(
+                      user.name,
+                      style: TextStyle(fontSize: 30),
+                    );
+                    return null;
+                  },
+                ),
+              ),
             );
           },
         ),

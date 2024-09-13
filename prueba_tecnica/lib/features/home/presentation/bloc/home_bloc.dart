@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _getUser(GetItemsList event, Emitter<HomeState> emit) async {
     emit(LoadingHome());
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     emit(ItemsUser(listUser: userList));
   }
 }
